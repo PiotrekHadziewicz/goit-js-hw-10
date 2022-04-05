@@ -37,32 +37,35 @@ searchCountry.addEventListener("input", debounce(() => {
             if (countries.length == 1) {
                 const countryInfoFragment = document.createDocumentFragment();
                 for (const country of countries) {
-                const countriesKey = Object.keys(country);
-                const li = document.createElement("li");
-                const img = document.createElement("img");
-                const b = document.createElement("b");
-                b.append(`${country.name.common}`);
-                img.setAttribute("src", country.flags.svg);
-                img.style.width = "25px";
-                img.style.height = "20px";
-                li.append(img, b);
-                fragment.append(li);
-                const capitalP = document.createElement("p");
-                console.log(countries[0].languages);
-                const jezyki = Object.values(country.languages).join(', ');
-                capitalP.insertAdjacentHTML("beforeend",`<b>${countriesKey[2]}: </b>${country.capital}`);
-                countryInfoFragment.append(capitalP);
-                const languagesP = document.createElement("p");
-                languagesP.insertAdjacentHTML("beforeend",`<b>${countriesKey[3]}: </b>${jezyki}`);
-                countryInfoFragment.append(languagesP);
-                const populationP = document.createElement("p");
-                populationP.insertAdjacentHTML("beforeend",`<b>${countriesKey[4]}: </b>${country.population}`);
-                countryInfoFragment.append(populationP);
+                    const countriesKey = Object.keys(country);
+                    const li = document.createElement("li");
+                    const img = document.createElement("img");
+                    const b = document.createElement("b");
+                    b.append(`${country.name.common}`);
+                    img.setAttribute("src", country.flags.svg);
+                    img.style.width = "25px";
+                    img.style.height = "20px";
+                    li.append(img, b);
+                    fragment.append(li);
+                    const capitalP = document.createElement("p");
+                    console.log(countries[0].languages);
+                    const jezyki = Object.values(country.languages).join(', ');
+                    capitalP.insertAdjacentHTML("beforeend", `<b>${countriesKey[2]}: </b>${country.capital}`);
+                    countryInfoFragment.append(capitalP);
+                    const languagesP = document.createElement("p");
+                    languagesP.insertAdjacentHTML("beforeend", `<b>${countriesKey[3]}: </b>${jezyki}`);
+                    countryInfoFragment.append(languagesP);
+                    const populationP = document.createElement("p");
+                    populationP.insertAdjacentHTML("beforeend", `<b>${countriesKey[4]}: </b>${country.population}`);
+                    countryInfoFragment.append(populationP);
                 }
                 ul.innerHTML = "";
                 countryInfo.innerHTML = "";
-            ul.append(fragment);
-            countryInfo.append(countryInfoFragment);
-        }
-    });
+                ul.append(fragment);
+                countryInfo.append(countryInfoFragment);
+            }
+        })
+        .catch(() => { 
+            Notiflix.Notify.failure("Oops, there is no country with that name");
+        });
 }, DEBOUNCE_DELAY));
